@@ -1,0 +1,92 @@
+[
+{
+    "model": "ElectStore.product",
+    "pk": 1,
+    "fields": {
+        "name_goods": "Lenovo V14",
+        "description": "Celeron DC N4020 1.1-2.8GHz,4GB,SSD 120GB,14\"HD,RUS,DOS HDMI, IRON GRAY",
+        "category": "laptops",
+        "residue": 2,
+        "cost": "59120.00",
+        "created_at": "2022-01-09"
+    }
+},
+{
+    "model": "ElectStore.product",
+    "pk": 2,
+    "fields": {
+        "name_goods": "Неттоп MSI",
+        "description": "Cubi N 8GL-050BRU, Intel Celeron N4000 (1.10-2.60GHz), 1xSlots DDR4, 1xM.2 2280 PCIe, SATA SSD, 1x2.5“ HDD, SSD, Intel UHD Graphics 600, D-Sub, HDMI, 4xUSB3.0, RJ45, WiFi ac, BT 4.2, DOS, Black",
+        "category": "laptops",
+        "residue": 1,
+        "cost": "1548877.00",
+        "created_at": "2022-01-09"
+    }
+},
+{
+    "model": "ElectStore.product",
+    "pk": 3,
+    "fields": {
+        "name_goods": "PHILIPS 21,5\"",
+        "description": "223V5LSB2 TN LED WIDE 1920x1080 170, 160 10000000 - 1 5ms VGAhttps://www.link.kg/catalog/6/\t*",
+        "category": "monitors",
+        "residue": 5,
+        "cost": "10651.65",
+        "created_at": "2022-01-09"
+    }
+},
+{
+    "model": "ElectStore.product",
+    "pk": 4,
+    "fields": {
+        "name_goods": "МФУ Pantum",
+        "description": "M6700DW (A4, Printer, Scanner, Copier, 1200x1200dpi, 30ppm, Duplex Print, USB, LAN, Wi-Fi, White)",
+        "category": "office_equipment",
+        "residue": 10,
+        "cost": "17654.25",
+        "created_at": "2022-01-09"
+    }
+},
+{
+    "model": "ElectStore.product",
+    "pk": 5,
+    "fields": {
+        "name_goods": "ML-180 K С ПЛАНКОЙ",
+        "description": "цвет СЕРЫЙ Электромагнитный ЗАМОК, усилие 180 кг(*id 12) https://www.link.kg/catalog/9/36230745\t*",
+        "category": "video_surveillance",
+        "residue": 2,
+        "cost": "1460.80",
+        "created_at": "2022-01-09"
+    }
+},
+{
+    "model": "ElectStore.product",
+    "pk": 6,
+    "fields": {
+        "name_goods": "Тонер HP LJ",
+        "description": "1010, 1012, 1015, 1020, 1022 (NetProduct) 100 г, банка",
+        "category": "other",
+        "residue": 100,
+        "cost": "450.69",
+        "created_at": "2022-01-09"
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$2QVv75tWAHvwBR7ZyAU8zJ$U9Gu4+zhxKWMAF7Ivllne2S8f3JElxv7vc+4G0vUFmA=",
+        "last_login": "2022-01-09T11:01:41.634Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-01-09T11:01:13.816Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
