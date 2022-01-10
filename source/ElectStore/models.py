@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 CATEGORY_CHOICES = [("other", "Other"), ("laptops", "Laptops"), ("monitors", "Monitors"),
-                    ("office_equipment", "Office_equipment"), ("video_surveillance", "Video_surveillance")]
+                    ("office_equipment", "Office equipment"), ("video_surveillance", "Video surveillance")]
 
 
 class Product(models.Model):

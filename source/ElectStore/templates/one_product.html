@@ -9,10 +9,16 @@
     </li>
 {% endblock %}
 {% block content %}
-    <h2>Категория: {{ product.get_category_display}}</h2>
-    <h2>Название: {{ product.name_goods }}</h2>
-    <p> Описание: {{ product.description }}</p>
-    <p>Цена: {{ product.cost }}</p>
-    <p>Остаток: {{ product.residue }}</p>
-    <p><a href="{% url "index" %}">Назад</a></p>
+    <br>
+    <div class="card border-info mb-3" style="max-width: 18rem;">
+      <div class="card-header bg-transparent border-info">Категория: {{ product.get_category_display}}</div>
+      <div class="card-body ">
+        <h5 class="card-title">Название: {{ product.name_goods }}</h5>
+        <p class="card-text">Описание: {{ product.description }}</p>
+        <p>Цена: {{ product.cost }}</p>
+        <p>Остаток: {{ product.residue }}</p>
+      </div>
+      <div class="card-footer bg-transparent border-info">
+          <a href="{% url "index" %}" class="btn btn-primary" style="float: right">Назад</a></div>
+    </div>
 {% endblock %}
