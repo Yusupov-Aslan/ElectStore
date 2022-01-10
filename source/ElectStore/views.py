@@ -36,3 +36,28 @@ def add_product_view(request, **kwargs):
             return redirect("index")
         else:
             return render(request, 'product_create.html', {"form": form})
+
+
+def update_product_view(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'GET':
+        form = ProductForm(initial={
+            'category': product.category,
+            'name_goods': product.name_goods,
+            'description': product.description,
+            'cost': product.cost,
+            'residue': product.residue,
+        })
+        return render(request, 'product_update.html', {"product": product, "form": form})
+    else:
+        form = ProductForm(data=request.POST)
+        if form.is_valid():
+            product.category = form.cleaned_data.get('category')
+            product.name_goods = form.cleaned_data.get('name_goods')
+            product.description = form.cleaned_data.get('description')
+            product.cost = form.cleaned_data.get('cost')
+            product.residue = form.cleaned_data.get('residue')
+            product.save()
+            return redirect("index")
+        else:
+            return render(request, 'product_update.html', {"product": product, "form": form})

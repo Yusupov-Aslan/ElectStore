@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Редактировать товар{% endblock %}
+{% block nav %} {% endblock %}
+{% block content %}
+    <h1>Редактировать товар</h1>
+    <form action="{% url "update_product" product.pk %}" method="post">
+    {% include 'partial/form.html' with button_text="Редактировать" %}
+    </form>
+    <br>
+    <p><a href="{% url "one_product" product.pk %}">Назад</a></p>
+{% endblock %}
