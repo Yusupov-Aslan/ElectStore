@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-Aslan
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+    {% for product in products %}
+        <hr style="border: 3px solid red;">
+        <h2>Название: {{ product.name_goods }}</h2>
+        <h2>Цена: {{ product.cost }}</h2>
+        <h2>Категория: {{ product.category }}</h2>
+        <p><a href="{% url "one_product" product.pk %}">Детальный просмотр...</a></p>
+        <hr style="border: 3px solid red;">
+    {% endfor %}
+{% endblock %}
