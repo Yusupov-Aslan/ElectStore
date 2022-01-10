@@ -23,14 +23,15 @@ def add_product_view(request, **kwargs):
         return render(request, 'product_create.html', {"form": form})
     else:
         form = ProductForm(data=request.POST)
+
         if form.is_valid():
             category = form.cleaned_data.get('category')
             name_goods = form.cleaned_data.get('name_goods')
             description = form.cleaned_data.get('description')
             cost = form.cleaned_data.get('cost')
             residue = form.cleaned_data.get('residue')
-            new_product = Task.objects.create(category=category, name_goods=name_goods, description=description,
-                                              cost=cost, residue=residue)
+            new_product = Product.objects.create(category=category, name_goods=name_goods, description=description,
+                                                 cost=cost, residue=residue)
             new_product.save()
             return redirect("index")
         else:
