@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Удаление товара{% endblock %}
+{% block content %}
+    <div>
+        <form action="{% url 'delete_product' products.pk %}" method="POST">
+        {% csrf_token %}
+        <h2>Вы действительно хотите удалить продукт!!! <br> {{ products.name_goods }}</h2>
+            <div class="gap-2 col-6 ">
+                <a><button class="btn btn-primary" type="submit">Да</button></a>
+                <a href="{% url "one_product" products.pk %}"><button class="btn btn-primary" type="button">Нет</button></a>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}
