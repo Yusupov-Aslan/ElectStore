@@ -1,14 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
-
+from django.views.generic import ListView
 # Create your views here.
 from ElectStore.forms import ProductForm
 from ElectStore.models import Product
 
 
-def index_view(request):
-    product = Product.objects.order_by("category", "name_goods")
-    context = {'products': product}
-    return render(request, 'index.html', context)
+class IndexView(ListView):
+    model = Product
+    context_object_name = 'products'
+    template_name = 'index.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.order_by("category", "name_goods")
 
 
 def one_product_view(request, pk):
