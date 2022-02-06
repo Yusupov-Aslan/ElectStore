@@ -1,4 +1,7 @@
+from django.core.validators import BaseValidator
 from django.db import models
+from django.utils.deconstruct import deconstructible
+
 
 # Create your models here.
 CATEGORY_CHOICES = [("other", "Other"), ("laptops", "Laptops"), ("monitors", "Monitors"),
@@ -20,18 +23,18 @@ class Product(models.Model):
         return f"{self.pk}. {self.name_goods}: {self.category}"
 
     class Meta:
-        db_table = 'product'
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
 
-# class Category(models.Model):
-#     category = models.CharField(max_length=20)
-#
-#     def __str__(self):
-#         return f'{self.category}'
-#
-#     class Meta:
-#         db_table = 'category'
-#         verbose_name = 'Категория'
-#         verbose_name_plural = 'Категории'
+class ItemCart(models.Model):
+    product = models.ForeignKey('ElectStore.Product', on_delete=models.CASCADE,
+                                related_name='item_carts', verbose_name='Категории')
+    quantity = models.PositiveIntegerField(verbose_name="Количество")
+
+    def __str__(self):
+        return f"{self.pk}. {self.product}: {self.quantity}"
+
+    class Meta:
+        verbose_name = 'Товар в корзине'
+        verbose_name_plural = 'Товары в корзине'

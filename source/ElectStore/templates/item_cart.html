@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Главная{% endblock %}
+{% block nav %} {% endblock %}
+{% block content %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">#</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in object_list %}
+            <tr>
+                <td>{{ item.product.name_goods }}</td>
+                <td>{{ item.product.cost }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{% widthratio item.quantity 1 item.product.cost %}</td>
+                <th scope="row">
+                    <form action="{% url 'cart_delete' item.pk %}" method="POST">
+                        {% csrf_token %}
+                        <a>
+                            <button class="btn btn-danger" type="submit">Удалить</button>
+                        </a>
+                    </form>
+                </th>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Итого:</td>
+            <th scope="row">{{ total }}</th>
+        </tr>
+        </tfoot>
+    </table>
+{% endblock %}

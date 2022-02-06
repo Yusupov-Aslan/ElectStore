@@ -2,23 +2,28 @@
 {% block title %}{{ product.name_goods }}{% endblock %}
 {% block nav %}
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="{% url 'update_product' product.pk%}">Редактировать</a>
+        <a class="nav-link active" aria-current="page" href="{% url 'update_product' product.pk %}">Редактировать</a>
     </li>
     <li class="nav-item">
-       <a class="nav-link active" aria-current="page" href="{% url 'delete_product' product.pk%}">Удалить</a>
+        <a class="nav-link active" aria-current="page" href="{% url 'delete_product' product.pk %}">Удалить</a>
     </li>
 {% endblock %}
 {% block content %}
     <br>
     <div class="card border-info mb-3" style="max-width: 18rem;">
-      <div class="card-header bg-transparent border-info">Категория: {{ product.get_category_display}}</div>
-      <div class="card-body ">
-        <h5 class="card-title">Название: {{ product.name_goods }}</h5>
-        <p class="card-text">Описание: {{ product.description }}</p>
-        <p>Цена: {{ product.cost }}</p>
-        <p>Остаток: {{ product.residue }}</p>
-      </div>
-      <div class="card-footer bg-transparent border-info">
-          <a href="{% url "index" %}" class="btn btn-primary" style="float: right">Назад</a></div>
+        <div class="card-header bg-transparent border-info">Категория: {{ product.get_category_display }}</div>
+        <div class="card-body ">
+            <h5 class="card-title">Название: {{ product.name_goods }}</h5>
+            <p class="card-text">Описание: {{ product.description }}</p>
+            <p>Цена: {{ product.cost }}</p>
+            <p>Остаток: {{ product.residue }}</p>
+        </div>
+        <div class="card-footer bg-transparent border-info">
+            <a href="{% url "index" %}" class="btn btn-primary" style="float: right">Назад</a></div>
+        <form action="{% url "cart_add" product.pk %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="site" value="{% url "one_product" product.pk %}">
+            <input style="float: right" class="btn btn-danger" type="submit" value="Добавить в корзину"/>
+        </form>
     </div>
 {% endblock %}

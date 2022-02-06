@@ -1,18 +1,29 @@
 {% extends 'base.html' %}
 {% block title %}Главная{% endblock %}
 {% block content %}
+    <br>
+    {% include 'partial/simple_search.html' %}
+    <br>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
     {% for product in products %}
         <br>
         <div class="card" style="max-width: 400px;">
-          <div class="card-header">
-            Категория: {{ product.get_category_display }}
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Название: {{ product.name_goods }}</h5>
-            <p class="card-text">Цена: {{ product.cost }}</p>
-            <a href="{% url "one_product" product.pk %}" class="btn btn-primary" style="float: right">
-                Детальный просмотр...</a>
-          </div>
+            <div class="card-header">
+                Категория: {{ product.get_category_display }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Название: {{ product.name_goods }}</h5>
+                <p class="card-text">Цена: {{ product.cost }}</p>
+                <a href="{% url "one_product" product.pk %}" class="btn btn-primary" style="float: right">
+                    Детальный просмотр...</a>
+                <form action="{% url "cart_add" product.pk %}" method="post">
+                   {% csrf_token %}
+                    <input type="hidden" name="page", value="{{ request.GET.page }}">
+                    <input style="float: right" class="btn btn-danger" type="submit" value="Добавить в корзину" />
+                </form>
+            </div>
         </div>
     {% endfor %}
 {% endblock %}
