@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView
+from django.urls import reverse
+from django.views.generic import ListView, CreateView
 # Create your views here.
 from ElectStore.forms import ProductForm
 from ElectStore.models import Product
@@ -12,34 +13,23 @@ class IndexView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        queryset = queryset.filter(residue__gt=0)
         return queryset.order_by("category", "name_goods")
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = "product_create.html"
+
+    def get_success_url(self):
+        return reverse("one_product", kwargs={"pk": self.object.pk})
 
 
 def one_product_view(request, pk):
     product = get_object_or_404(Product, pk=pk)
     context = {"product": product}
     return render(request, 'one_product.html', context)
-
-
-def add_product_view(request, **kwargs):
-    if request.method == 'GET':
-        form = ProductForm()
-        return render(request, 'product_create.html', {"form": form})
-    else:
-        form = ProductForm(data=request.POST)
-
-        if form.is_valid():
-            category = form.cleaned_data.get('category')
-            name_goods = form.cleaned_data.get('name_goods')
-            description = form.cleaned_data.get('description')
-            cost = form.cleaned_data.get('cost')
-            residue = form.cleaned_data.get('residue')
-            new_product = Product.objects.create(category=category, name_goods=name_goods, description=description,
-                                                 cost=cost, residue=residue)
-            new_product.save()
-            return redirect("index")
-        else:
-            return render(request, 'product_create.html', {"form": form})
 
 
 def update_product_view(request, pk):
