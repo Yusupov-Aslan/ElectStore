@@ -1,7 +1,6 @@
 from django import forms
-from django.forms import widgets
 
-from ElectStore.models import CATEGORY_CHOICES, Product
+from ElectStore.models import Product
 
 
 class ProductForm(forms.ModelForm):

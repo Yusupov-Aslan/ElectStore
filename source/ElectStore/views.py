@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
-from django.views.generic import ListView, CreateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 # Create your views here.
 from ElectStore.forms import ProductForm
 from ElectStore.models import Product
@@ -26,42 +26,21 @@ class ProductCreateView(CreateView):
         return reverse("one_product", kwargs={"pk": self.object.pk})
 
 
-def one_product_view(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    context = {"product": product}
-    return render(request, 'one_product.html', context)
+class ProductDetailView(DetailView):
+    template_name = 'one_product.html'
+    model = Product
 
 
-def update_product_view(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    if request.method == 'GET':
-        form = ProductForm(initial={
-            'category': product.category,
-            'name_goods': product.name_goods,
-            'description': product.description,
-            'cost': product.cost,
-            'residue': product.residue,
-        })
-        return render(request, 'product_update.html', {"product": product, "form": form})
-    else:
-        form = ProductForm(data=request.POST)
-        if form.is_valid():
-            product.category = form.cleaned_data.get('category')
-            product.name_goods = form.cleaned_data.get('name_goods')
-            product.description = form.cleaned_data.get('description')
-            product.cost = form.cleaned_data.get('cost')
-            product.residue = form.cleaned_data.get('residue')
-            product.save()
-            return redirect("index")
-        else:
-            return render(request, 'product_update.html', {"product": product, "form": form})
+class ProductUpdateView(UpdateView):
+    model = Product
+    template_name = 'product_update.html'
+    form_class = ProductForm
+
+    def get_success_url(self):
+        return reverse("one_product", kwargs={"pk": self.object.pk})
 
 
-def delete_product_view(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    context = {'products': product}
-    if request.method == 'GET':
-        return render(request, 'product_delete.html', context)
-    else:
-        product.delete()
-        return redirect('index')
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'product_delete.html'
+    success_url = reverse_lazy('index')
