@@ -1,6 +1,5 @@
+from ElectStore.models import Product, Order
 from django.contrib import admin
-
-from ElectStore.models import Product
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -11,4 +10,23 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at']
 
 
+class ProductInline(admin.TabularInline):
+    model = Order.products.through
+    readonly_fields = ('product', 'amount')
+    can_delete = False
+    extra = 0
+
+    def has_add_permission(self, request, obj):
+        return False
+
+
+class OrederAdmin(admin.ModelAdmin):
+    fields = ['user_name', 'phone', 'address']
+    list_display = ('pk', 'user_name', 'phone', 'address', 'created_at')
+    readonly_fields = ['created_at']
+    inlines = (ProductInline,)
+    ordering = ('-created_at',)
+
+
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Order, OrederAdmin)

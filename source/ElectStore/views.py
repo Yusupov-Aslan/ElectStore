@@ -6,8 +6,8 @@ from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 # Create your views here.
-from ElectStore.forms import ProductForm, SearchForm
-from ElectStore.models import Product, ItemCart
+from ElectStore.forms import ProductForm, SearchForm, OrderForm
+from ElectStore.models import Product, ItemCart, Order, OrderProduct
 
 
 class IndexView(ListView):
@@ -85,6 +85,7 @@ class CartView(ListView):
         for item in context['object_list']:
             arr.append(item.product.cost * item.quantity)
         context['total'] = sum(arr)
+        context['form'] = OrderForm()
         return context
 
 
@@ -126,3 +127,16 @@ class CartDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse("cart_view")
+
+
+class OrderCreateView(View):
+    def post(self, request, *args, **kwargs):
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save()
+            for item in ItemCart.objects.all():
+                OrderProduct.objects.create(order=order, product=item.product, amount=item.quantity)
+            ItemCart.objects.all().delete()
+        return redirect('cart_view')
+
+

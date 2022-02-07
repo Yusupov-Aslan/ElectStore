@@ -6,7 +6,7 @@ from ElectStore.views import (
     ProductDetailView,
     ProductUpdateView,
     ProductDeleteView,
-    CartAddView, CartView, CartDeleteView)
+    CartAddView, CartView, CartDeleteView, OrderCreateView)
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -16,6 +16,6 @@ urlpatterns = [
     path('product/<int:pk>/delete/', ProductDeleteView.as_view(), name='delete_product'),
     path('product/<int:pk>/cart/add/', CartAddView.as_view(), name='cart_add'),
     path('cart/', CartView.as_view(), name='cart_view'),
-    path('cart/<int:pk>/delete/', CartDeleteView.as_view(), name='cart_delete')
-
+    path('cart/<int:pk>/delete/', CartDeleteView.as_view(), name='cart_delete'),
+    path('order/create/', OrderCreateView.as_view(), name='order_create'),
 ]
