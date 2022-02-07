@@ -4,7 +4,7 @@
 {% block content %}
     <h1>Редактировать товар</h1>
     <form action="{% url "update_product" product.pk %}" method="post">
-    {% include 'partial/form.html' with button_text="Редактировать" %}
+        {% include 'partial/form.html' with button_text="Редактировать" %}
     </form>
     <br>
     <p><a href="{% url "one_product" product.pk %}" class="btn btn-primary" style="float: left">Назад</a></p>

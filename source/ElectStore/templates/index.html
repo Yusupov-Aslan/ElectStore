@@ -19,9 +19,9 @@
                 <a href="{% url "one_product" product.pk %}" class="btn btn-primary" style="float: right">
                     Детальный просмотр...</a>
                 <form action="{% url "cart_add" product.pk %}" method="post">
-                   {% csrf_token %}
-                    <input type="hidden" name="page", value="{{ request.GET.page }}">
-                    <input style="float: right" class="btn btn-danger" type="submit" value="Добавить в корзину" />
+                    {% csrf_token %}
+                    <input type="hidden" name="page" value="{{ request.GET.page }}">
+                    <input style="float: right" class="btn btn-danger" type="submit" value="Добавить в корзину"/>
                 </form>
             </div>
         </div>
