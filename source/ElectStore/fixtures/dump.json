@@ -6,8 +6,8 @@
         "name_goods": "Lenovo V14",
         "description": "Celeron DC N4020 1.1-2.8GHz,4GB,SSD 120GB,14\"HD,RUS,DOS HDMI, IRON GRAY",
         "category": "laptops",
-        "residue": 2,
-        "cost": "59120.00",
+        "residue": 0,
+        "cost": "55555.00",
         "created_at": "2022-01-09"
     }
 },
@@ -15,7 +15,7 @@
     "model": "ElectStore.product",
     "pk": 2,
     "fields": {
-        "name_goods": "Неттоп MSI",
+        "name_goods": "Nettop MSI",
         "description": "Cubi N 8GL-050BRU, Intel Celeron N4000 (1.10-2.60GHz), 1xSlots DDR4, 1xM.2 2280 PCIe, SATA SSD, 1x2.5“ HDD, SSD, Intel UHD Graphics 600, D-Sub, HDMI, 4xUSB3.0, RJ45, WiFi ac, BT 4.2, DOS, Black",
         "category": "laptops",
         "residue": 1,
@@ -30,7 +30,7 @@
         "name_goods": "PHILIPS 21,5\"",
         "description": "223V5LSB2 TN LED WIDE 1920x1080 170, 160 10000000 - 1 5ms VGAhttps://www.link.kg/catalog/6/\t*",
         "category": "monitors",
-        "residue": 5,
+        "residue": 4,
         "cost": "10651.65",
         "created_at": "2022-01-09"
     }
@@ -42,7 +42,7 @@
         "name_goods": "МФУ Pantum",
         "description": "M6700DW (A4, Printer, Scanner, Copier, 1200x1200dpi, 30ppm, Duplex Print, USB, LAN, Wi-Fi, White)",
         "category": "office_equipment",
-        "residue": 10,
+        "residue": 3,
         "cost": "17654.25",
         "created_at": "2022-01-09"
     }
@@ -72,11 +72,131 @@
     }
 },
 {
+    "model": "ElectStore.product",
+    "pk": 9,
+    "fields": {
+        "name_goods": "Lenovo V14",
+        "description": "qweee",
+        "category": "other",
+        "residue": 23,
+        "cost": "123445.00",
+        "created_at": "2022-02-04"
+    }
+},
+{
+    "model": "ElectStore.product",
+    "pk": 10,
+    "fields": {
+        "name_goods": "Неттоп MSI",
+        "description": "qwer",
+        "category": "other",
+        "residue": 2,
+        "cost": "20000.00",
+        "created_at": "2022-02-06"
+    }
+},
+{
+    "model": "ElectStore.product",
+    "pk": 11,
+    "fields": {
+        "name_goods": "Proverka",
+        "description": "qwerty",
+        "category": "laptops",
+        "residue": 0,
+        "cost": "10000.00",
+        "created_at": "2022-02-06"
+    }
+},
+{
+    "model": "ElectStore.product",
+    "pk": 12,
+    "fields": {
+        "name_goods": "Тонер HP LJ",
+        "description": "",
+        "category": "other",
+        "residue": 2,
+        "cost": "5000.00",
+        "created_at": "2022-02-06"
+    }
+},
+{
+    "model": "ElectStore.itemcart",
+    "pk": 18,
+    "fields": {
+        "product": 1,
+        "quantity": 1
+    }
+},
+{
+    "model": "ElectStore.itemcart",
+    "pk": 19,
+    "fields": {
+        "product": 4,
+        "quantity": 1
+    }
+},
+{
+    "model": "ElectStore.orderproduct",
+    "pk": 1,
+    "fields": {
+        "order": 1,
+        "product": 1,
+        "amount": 1
+    }
+},
+{
+    "model": "ElectStore.orderproduct",
+    "pk": 2,
+    "fields": {
+        "order": 1,
+        "product": 2,
+        "amount": 1
+    }
+},
+{
+    "model": "ElectStore.orderproduct",
+    "pk": 3,
+    "fields": {
+        "order": 2,
+        "product": 11,
+        "amount": 2
+    }
+},
+{
+    "model": "ElectStore.orderproduct",
+    "pk": 4,
+    "fields": {
+        "order": 2,
+        "product": 3,
+        "amount": 1
+    }
+},
+{
+    "model": "ElectStore.order",
+    "pk": 1,
+    "fields": {
+        "user_name": "aslan",
+        "phone": "0550667799",
+        "address": "Beregovaya",
+        "created_at": "2022-02-07T07:35:25.288Z"
+    }
+},
+{
+    "model": "ElectStore.order",
+    "pk": 2,
+    "fields": {
+        "user_name": "Aslan2",
+        "phone": "0550667799",
+        "address": "Bish",
+        "created_at": "2022-02-07T08:09:19.797Z"
+    }
+},
+{
     "model": "auth.user",
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$320000$2QVv75tWAHvwBR7ZyAU8zJ$U9Gu4+zhxKWMAF7Ivllne2S8f3JElxv7vc+4G0vUFmA=",
-        "last_login": "2022-01-09T11:01:41.634Z",
+        "last_login": "2022-02-07T07:37:37.874Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
