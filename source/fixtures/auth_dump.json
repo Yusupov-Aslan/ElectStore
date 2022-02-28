@@ -28,7 +28,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$320000$2QVv75tWAHvwBR7ZyAU8zJ$U9Gu4+zhxKWMAF7Ivllne2S8f3JElxv7vc+4G0vUFmA=",
-        "last_login": "2022-02-28T09:17:08.446Z",
+        "last_login": "2022-02-28T12:15:50.744Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -46,7 +46,7 @@
     "pk": 3,
     "fields": {
         "password": "pbkdf2_sha256$320000$c14nxjP8K1VjbBF7lR6VD4$jlYc/DRWsIwp17QtYc+mGRAGqlQAWXfwrVjbcywvWMY=",
-        "last_login": "2022-02-28T11:31:52.683Z",
+        "last_login": "2022-02-28T11:31:52Z",
         "is_superuser": false,
         "username": "moderator",
         "first_name": "Moderator",
@@ -54,8 +54,12 @@
         "email": "moderator@moderator.com",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2022-02-28T11:31:52.580Z",
-        "groups": [],
+        "date_joined": "2022-02-28T11:31:52Z",
+        "groups": [
+            [
+                "Модераторы"
+            ]
+        ],
         "user_permissions": []
     }
 }
