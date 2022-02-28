@@ -8,6 +8,8 @@ from ElectStore.views import (
     ProductDeleteView,
     CartAddView, CartView, CartDeleteView, OrderCreateView)
 
+app_name = 'ElectStore'
+
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('product/add/', ProductCreateView.as_view(), name='add_product'),

@@ -49,30 +49,30 @@ class IndexView(ListView):
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
-    template_name = "product_create.html"
+    template_name = "products/product_create.html"
 
     def get_success_url(self):
-        return reverse("one_product", kwargs={"pk": self.object.pk})
+        return reverse("ElectStore:one_product", kwargs={"pk": self.object.pk})
 
 
 class ProductDetailView(DetailView):
-    template_name = 'one_product.html'
+    template_name = 'products/one_product.html'
     model = Product
 
 
 class ProductUpdateView(UpdateView):
     model = Product
-    template_name = 'product_update.html'
+    template_name = 'products/product_update.html'
     form_class = ProductForm
 
     def get_success_url(self):
-        return reverse("one_product", kwargs={"pk": self.object.pk})
+        return reverse("ElectStore:one_product", kwargs={"pk": self.object.pk})
 
 
 class ProductDeleteView(DeleteView):
     model = Product
-    template_name = 'product_delete.html'
-    success_url = reverse_lazy('index')
+    template_name = 'products/product_delete.html'
+    success_url = reverse_lazy('ElectStore:index')
 
 
 class CartView(ListView):
@@ -108,7 +108,7 @@ class CartAddView(View):
                 product.save()
         if request.POST.get("site"):
             return redirect(request.POST.get("site"))
-        url = reverse("index")
+        url = reverse("ElectStore:index")
         if request.POST.get('page'):
             url = f'{url}?page={request.POST.get("page")}'
         return redirect(url)
@@ -126,7 +126,7 @@ class CartDeleteView(DeleteView):
         return super().post(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse("cart_view")
+        return reverse("ElectStore:cart_view")
 
 
 class OrderCreateView(View):
@@ -137,6 +137,6 @@ class OrderCreateView(View):
             for item in ItemCart.objects.all():
                 OrderProduct.objects.create(order=order, product=item.product, amount=item.quantity)
             ItemCart.objects.all().delete()
-        return redirect('cart_view')
+        return redirect('ElectStore:cart_view')
 
 

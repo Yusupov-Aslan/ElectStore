@@ -21,7 +21,7 @@
                     <td>{{ item.quantity }}</td>
                     <td>{% widthratio item.quantity 1 item.product.cost %}</td>
                     <th scope="row">
-                        <form action="{% url 'cart_delete' item.pk %}" method="POST">
+                        <form action="{% url 'ElectStore:cart_delete' item.pk %}" method="POST">
                             {% csrf_token %}
                             <a>
                                 <button class="btn btn-danger" type="submit">Удалить</button>
@@ -44,7 +44,7 @@
     </div>
     {% if object_list %}
         <h1>Оформить заказ</h1>
-        <form action="{% url "order_create" %}" method="post">
+        <form action="{% url "ElectStore:order_create" %}" method="post">
             {% include 'partial/form.html' with button_text="Оформить" %}
         </form>
     {% endif %}

@@ -16,9 +16,9 @@
             <div class="card-body">
                 <h5 class="card-title">Название: {{ product.name_goods }}</h5>
                 <p class="card-text">Цена: {{ product.cost }}</p>
-                <a href="{% url "one_product" product.pk %}" class="btn btn-primary" style="float: right">
+                <a href="{% url "ElectStore:one_product" product.pk %}" class="btn btn-primary" style="float: right">
                     Детальный просмотр...</a>
-                <form action="{% url "cart_add" product.pk %}" method="post">
+                <form action="{% url "ElectStore:cart_add" product.pk %}" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="page" value="{{ request.GET.page }}">
                     <input style="float: right" class="btn btn-danger" type="submit" value="Добавить в корзину"/>
