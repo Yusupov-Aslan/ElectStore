@@ -43,23 +43,19 @@
 },
 {
     "model": "auth.user",
-    "pk": 2,
+    "pk": 3,
     "fields": {
-        "password": "pbkdf2_sha256$320000$3e6aY9ndBKn0fp3bLCydCb$QjTjZpxwQpi+DUFOY8rQ1pOumWIzhT6+J2RD5pTwm3M=",
-        "last_login": "2022-02-28T09:10:37.225Z",
+        "password": "pbkdf2_sha256$320000$c14nxjP8K1VjbBF7lR6VD4$jlYc/DRWsIwp17QtYc+mGRAGqlQAWXfwrVjbcywvWMY=",
+        "last_login": "2022-02-28T11:31:52.683Z",
         "is_superuser": false,
-        "username": "aslan",
-        "first_name": "Yusupov",
-        "last_name": "Aslan",
-        "email": "aslan@aslan.com",
+        "username": "moderator",
+        "first_name": "Moderator",
+        "last_name": "Moderator",
+        "email": "moderator@moderator.com",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2022-02-28T08:57:32Z",
-        "groups": [
-            [
-                "Модераторы"
-            ]
-        ],
+        "date_joined": "2022-02-28T11:31:52.580Z",
+        "groups": [],
         "user_permissions": []
     }
 }
