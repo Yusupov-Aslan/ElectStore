@@ -1,0 +1,66 @@
+[
+{
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "Модераторы",
+        "permissions": [
+            [
+                "add_product",
+                "ElectStore",
+                "product"
+            ],
+            [
+                "change_product",
+                "ElectStore",
+                "product"
+            ],
+            [
+                "delete_product",
+                "ElectStore",
+                "product"
+            ]
+        ]
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$2QVv75tWAHvwBR7ZyAU8zJ$U9Gu4+zhxKWMAF7Ivllne2S8f3JElxv7vc+4G0vUFmA=",
+        "last_login": "2022-02-28T09:17:08.446Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-01-09T11:01:13.816Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$3e6aY9ndBKn0fp3bLCydCb$QjTjZpxwQpi+DUFOY8rQ1pOumWIzhT6+J2RD5pTwm3M=",
+        "last_login": "2022-02-28T09:10:37.225Z",
+        "is_superuser": false,
+        "username": "aslan",
+        "first_name": "Yusupov",
+        "last_name": "Aslan",
+        "email": "aslan@aslan.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-28T08:57:32Z",
+        "groups": [
+            [
+                "Модераторы"
+            ]
+        ],
+        "user_permissions": []
+    }
+}
+]

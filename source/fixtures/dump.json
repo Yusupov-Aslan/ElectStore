@@ -6,7 +6,7 @@
         "name_goods": "Lenovo V14",
         "description": "Celeron DC N4020 1.1-2.8GHz,4GB,SSD 120GB,14\"HD,RUS,DOS HDMI, IRON GRAY",
         "category": "laptops",
-        "residue": 0,
+        "residue": 1,
         "cost": "55555.00",
         "created_at": "2022-01-09"
     }
@@ -42,7 +42,7 @@
         "name_goods": "МФУ Pantum",
         "description": "M6700DW (A4, Printer, Scanner, Copier, 1200x1200dpi, 30ppm, Duplex Print, USB, LAN, Wi-Fi, White)",
         "category": "office_equipment",
-        "residue": 3,
+        "residue": 4,
         "cost": "17654.25",
         "created_at": "2022-01-09"
     }
@@ -120,22 +120,6 @@
     }
 },
 {
-    "model": "ElectStore.itemcart",
-    "pk": 18,
-    "fields": {
-        "product": 1,
-        "quantity": 1
-    }
-},
-{
-    "model": "ElectStore.itemcart",
-    "pk": 19,
-    "fields": {
-        "product": 4,
-        "quantity": 1
-    }
-},
-{
     "model": "ElectStore.orderproduct",
     "pk": 1,
     "fields": {
@@ -189,24 +173,6 @@
         "phone": "0550667799",
         "address": "Bish",
         "created_at": "2022-02-07T08:09:19.797Z"
-    }
-},
-{
-    "model": "auth.user",
-    "pk": 1,
-    "fields": {
-        "password": "pbkdf2_sha256$320000$2QVv75tWAHvwBR7ZyAU8zJ$U9Gu4+zhxKWMAF7Ivllne2S8f3JElxv7vc+4G0vUFmA=",
-        "last_login": "2022-02-07T07:37:37.874Z",
-        "is_superuser": true,
-        "username": "admin",
-        "first_name": "",
-        "last_name": "",
-        "email": "",
-        "is_staff": true,
-        "is_active": true,
-        "date_joined": "2022-01-09T11:01:13.816Z",
-        "groups": [],
-        "user_permissions": []
     }
 }
 ]
