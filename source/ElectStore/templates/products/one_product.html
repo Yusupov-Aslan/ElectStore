@@ -19,7 +19,7 @@
             <p>Остаток: {{ product.residue }}</p>
         </div>
         <div class="card-footer bg-transparent border-info">
-            <a href="{% url "ElectStore:" %}" class="btn btn-primary" style="float: right">Назад</a></div>
+            <a href="{% url "ElectStore:index" %}" class="btn btn-primary" style="float: right">Назад</a></div>
         <form action="{% url "ElectStore:cart_add" product.pk %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="site" value="{% url "ElectStore:one_product" product.pk %}">
