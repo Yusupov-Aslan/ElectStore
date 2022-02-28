@@ -33,10 +33,13 @@
                                href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Вход</a>
                         </li>
                     {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'ElectStore:add_product' %}">Добавить
-                                товар</a>
-                        </li>
+                        {% if perms.ElectStore.add_product %}
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page"
+                                   href="{% url 'ElectStore:add_product' %}">Добавить
+                                    товар</a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'accounts:logout' %}">Выход</a>
                         </li>

@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}{{ product.name_goods }}{% endblock %}
 {% block nav %}
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{% url 'ElectStore:update_product' product.pk %}">Редактировать</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{% url 'ElectStore:delete_product' product.pk %}">Удалить</a>
-    </li>
+    {% if perms.ElectStore.change_product %}
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'ElectStore:update_product' product.pk %}">Редактировать</a>
+        </li>
+    {% endif %}
+    {% if perms.ElectStore.delete_product %}
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'ElectStore:delete_product' product.pk %}">Удалить</a>
+        </li>
+    {% endif %}
 {% endblock %}
 {% block content %}
     <br>
