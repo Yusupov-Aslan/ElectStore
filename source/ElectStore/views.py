@@ -2,14 +2,14 @@ import json
 from urllib.parse import urlencode
 from urllib.request import Request
 
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.sessions.models import Session
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 # Create your views here.
 from ElectStore.forms import ProductForm, SearchForm, OrderForm
 from ElectStore.models import Product, ItemCart, Order, OrderProduct
@@ -83,8 +83,7 @@ class ProductDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('ElectStore:index')
 
 
-class CartView(ListView):
-    model = ItemCart
+class CartView(TemplateView):
     template_name = "item_cart.html"
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -129,15 +128,11 @@ class CartAddView(View):
         return res
 
 
-class CartDeleteView(DeleteView):
-    model = ItemCart
+class CartDeleteView(TemplateView):
     template_name = 'item_cart.html'
+    pk_url_kwarg = "pk"
 
     def post(self, request, *args, **kwargs):
-        # self.object = self.get_object()
-        # product = self.object.product
-        # product.residue += self.object.quantity
-        # product.save()
         pk = self.kwargs.get(self.pk_url_kwarg)
         cart = json.loads(request.COOKIES.get("cart"))
         cart_item = next(item for item in cart if item["product_id"] == pk)
@@ -155,9 +150,29 @@ class CartDeleteView(DeleteView):
 class OrderCreateView(View):
     def post(self, request, *args, **kwargs):
         form = OrderForm(request.POST)
+        response = HttpResponseRedirect(reverse('ElectStore:index'))
         if form.is_valid():
             order = form.save()
-            for item in ItemCart.objects.all():
-                OrderProduct.objects.create(order=order, product=item.product, amount=item.quantity)
-            ItemCart.objects.all().delete()
-        return redirect('ElectStore:cart_view')
+            if request.user.is_authenticated:
+                order.user = request.user
+                order.save()
+            cart = json.loads(request.COOKIES.get("cart"))
+            for item in cart:
+                product = Product.objects.get(pk=int(item['product_id']))
+                OrderProduct.objects.create(order=order, product_id=item["product_id"], amount=item['amount'])
+                product.residue -= int(item['amount'])
+                product.save()
+            response.delete_cookie('cart')
+        return response
+
+
+class OrderListView(LoginRequiredMixin, ListView):
+    model = OrderProduct
+    context_object_name = 'order_products'
+    template_name = 'orders.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(order__user=self.request.user)
+        return queryset.order_by("-order__created_at")

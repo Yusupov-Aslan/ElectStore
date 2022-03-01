@@ -24,8 +24,8 @@ class ProductInline(admin.TabularInline):
 
 
 class OrederAdmin(admin.ModelAdmin):
-    fields = ['user_name', 'phone', 'address']
-    list_display = ('pk', 'user_name', 'phone', 'address', 'created_at')
+    fields = ['user', 'phone', 'address']
+    list_display = ('pk', 'phone', 'address', 'created_at')
     readonly_fields = ['created_at']
     inlines = (ProductInline,)
     ordering = ('-created_at',)

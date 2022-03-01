@@ -6,7 +6,7 @@ from ElectStore.views import (
     ProductDetailView,
     ProductUpdateView,
     ProductDeleteView,
-    CartAddView, CartView, CartDeleteView, OrderCreateView)
+    CartAddView, CartView, CartDeleteView, OrderCreateView, OrderListView)
 
 app_name = 'ElectStore'
 
@@ -20,4 +20,5 @@ urlpatterns = [
     path('cart/', CartView.as_view(), name='cart_view'),
     path('cart/<int:pk>/delete/', CartDeleteView.as_view(), name='cart_delete'),
     path('order/create/', OrderCreateView.as_view(), name='order_create'),
+    path('orders/', OrderListView.as_view(), name='orders')
 ]

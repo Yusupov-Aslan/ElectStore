@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.db import models
 
@@ -48,7 +49,7 @@ class OrderProduct(models.Model):
 class Order(models.Model):
     products = models.ManyToManyField("ElectStore.Product", related_name='orders',
                                       verbose_name='Продукты', through=OrderProduct)
-    user_name = models.CharField(max_length=30,  verbose_name='Имя пользователя')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='orders')
     phone = models.CharField(max_length=30,  verbose_name='Телефон')
     address = models.CharField(max_length=30, verbose_name='Адрес')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
