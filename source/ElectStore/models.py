@@ -1,3 +1,4 @@
+from django.contrib.sessions.models import Session
 from django.db import models
 
 # Create your models here.
@@ -25,6 +26,7 @@ class Product(models.Model):
 
 
 class ItemCart(models.Model):
+    session = models.ForeignKey(Session, on_delete=models.CASCADE),
     product = models.ForeignKey('ElectStore.Product', on_delete=models.CASCADE,
                                 related_name='item_carts', verbose_name='Категории')
     quantity = models.PositiveIntegerField(verbose_name="Количество")

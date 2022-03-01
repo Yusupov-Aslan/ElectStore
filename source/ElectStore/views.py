@@ -1,7 +1,11 @@
+import json
 from urllib.parse import urlencode
+from urllib.request import Request
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.sessions.models import Session
 from django.db.models import Q
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -86,36 +90,43 @@ class CartView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
         arr = []
-        for item in context['object_list']:
-            arr.append(item.product.cost * item.quantity)
+        # for item in context['object_list']:
+        #     arr.append(item.product.cost * item.quantity)
+        cart = json.loads(self.request.COOKIES.get("cart")) if "cart" in self.request.COOKIES else []
+        for item in cart:
+            arr.append(item["product_cost"] * item["amount"])
         context['total'] = sum(arr)
         context['form'] = OrderForm()
         return context
 
 
 class CartAddView(View):
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs):
         pk = kwargs.get('pk')
         product = Product.objects.get(pk=pk)
         if product.residue > 0:
-            item_carts = ItemCart.objects.filter(product=product)
-            if item_carts.exists():
-                item = item_carts.first()
-                if product.residue > 0:
-                    item.quantity += 1
-                    item.save()
-                    product.residue -= 1
-                    product.save()
-            else:
-                ItemCart.objects.create(quantity=1, product=product)
-                product.residue -= 1
-                product.save()
-        if request.POST.get("site"):
-            return redirect(request.POST.get("site"))
-        url = reverse("ElectStore:index")
-        if request.POST.get('page'):
-            url = f'{url}?page={request.POST.get("page")}'
-        return redirect(url)
+            url = reverse("ElectStore:index")
+            res = HttpResponseRedirect(url)
+            if request.POST.get("site"):
+                res = HttpResponseRedirect(request.POST.get("site"))
+            if request.POST.get('page'):
+                res = HttpResponseRedirect(f'{url}?page={request.POST.get("page")}')
+            cart = json.loads(request.COOKIES.get("cart")) if "cart" in request.COOKIES else []
+            try:
+                cart_item = next(item for item in cart if item["product_id"] == product.id)
+                if product.residue >= cart_item['amount']+1:
+                    cart_item['amount'] += 1
+            except:
+                cart_item = {
+                    "product_id": product.id,
+                    "amount": 1,
+                    "product_name": product.name_goods,
+                    "product_cost": float(product.cost)}
+                cart.append(cart_item)
+            res.set_cookie(key="cart", value=json.dumps(cart))
+
+
+        return res
 
 
 class CartDeleteView(DeleteView):
@@ -123,11 +134,19 @@ class CartDeleteView(DeleteView):
     template_name = 'item_cart.html'
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        product = self.object.product
-        product.residue += self.object.quantity
-        product.save()
-        return super().post(request, *args, **kwargs)
+        # self.object = self.get_object()
+        # product = self.object.product
+        # product.residue += self.object.quantity
+        # product.save()
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        cart = json.loads(request.COOKIES.get("cart"))
+        cart_item = next(item for item in cart if item["product_id"] == pk)
+        cart_item['amount'] -= 1
+        if cart_item['amount'] <= 0:
+            cart.remove(cart_item)
+        res = HttpResponseRedirect(self.get_success_url())
+        res.set_cookie(key="cart", value=json.dumps(cart))
+        return res
 
     def get_success_url(self):
         return reverse("ElectStore:cart_view")
@@ -142,5 +161,3 @@ class OrderCreateView(View):
                 OrderProduct.objects.create(order=order, product=item.product, amount=item.quantity)
             ItemCart.objects.all().delete()
         return redirect('ElectStore:cart_view')
-
-

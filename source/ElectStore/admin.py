@@ -1,4 +1,5 @@
 from django.contrib.auth.models import Permission
+from django.contrib.sessions.models import Session
 
 from ElectStore.models import Product, Order
 from django.contrib import admin
@@ -33,3 +34,4 @@ class OrederAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrederAdmin)
 admin.site.register(Permission)
+admin.site.register(Session)

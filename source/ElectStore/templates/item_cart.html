@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load custom %}
 {% block title %}Главная{% endblock %}
 {% block nav %} {% endblock %}
 {% block content %}
@@ -14,22 +15,24 @@
             </tr>
             </thead>
             <tbody>
-            {% for item in object_list %}
-                <tr>
-                    <td>{{ item.product.name_goods }}</td>
-                    <td>{{ item.product.cost }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{% widthratio item.quantity 1 item.product.cost %}</td>
-                    <th scope="row">
-                        <form action="{% url 'ElectStore:cart_delete' item.pk %}" method="POST">
-                            {% csrf_token %}
-                            <a>
-                                <button class="btn btn-danger" type="submit">Удалить</button>
-                            </a>
-                        </form>
-                    </th>
-                </tr>
-            {% endfor %}
+            {% if request.COOKIES.cart %}
+                {% for item in request.COOKIES.cart|str_to_json %}
+                    <tr>
+                        <td>{{ item.product_name }}</td>
+                        <td>{{ item.product_cost|floatformat:-2 }}</td>
+                        <td>{{ item.amount }}</td>
+                        <td>{% ratio item.amount item.product_cost 1 %}</td>
+                        <th scope="row">
+                            <form action="{% url 'ElectStore:cart_delete' item.product_id %}" method="POST">
+                                {% csrf_token %}
+                                <a>
+                                    <button class="btn btn-danger" type="submit">Удалить</button>
+                                </a>
+                            </form>
+                        </th>
+                    </tr>
+                {% endfor %}
+            {% endif %}
             </tbody>
             <tfoot>
             <tr>
@@ -42,7 +45,7 @@
             </tfoot>
         </table>
     </div>
-    {% if object_list %}
+    {% if request.COOKIES.cart %}
         <h1>Оформить заказ</h1>
         <form action="{% url "ElectStore:order_create" %}" method="post">
             {% include 'partial/form.html' with button_text="Оформить" %}

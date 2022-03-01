@@ -1,5 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import CreateView
@@ -42,7 +44,11 @@ def login_view(request):
     return render(request, 'login.html', context=context)
 
 
+@login_required
 def logout_view(request):
     logout(request)
-    return redirect('ElectStore:index')
+    response = HttpResponseRedirect(reverse("ElectStore:index"))
+    response.delete_cookie('cart')
+    return response
+
 
