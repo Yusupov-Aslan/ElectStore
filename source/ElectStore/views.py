@@ -52,7 +52,7 @@ class IndexView(ListView):
 
 
 class ProductCreateView(PermissionRequiredMixin, CreateView):
-    permission_required = "ElectStore:add_product"
+    permission_required = "ElectStore.add_product"
     model = Product
     form_class = ProductForm
     template_name = "products/product_create.html"
@@ -67,7 +67,7 @@ class ProductDetailView(DetailView):
 
 
 class ProductUpdateView(PermissionRequiredMixin, UpdateView):
-    permission_required = "ElectStore:change_product"
+    permission_required = "ElectStore.change_product"
     model = Product
     template_name = 'products/product_update.html'
     form_class = ProductForm
@@ -77,7 +77,7 @@ class ProductUpdateView(PermissionRequiredMixin, UpdateView):
 
 
 class ProductDeleteView(PermissionRequiredMixin, DeleteView):
-    permission_required = "ElectStore:delete_product"
+    permission_required = "ElectStore.delete_product"
     model = Product
     template_name = 'products/product_delete.html'
     success_url = reverse_lazy('ElectStore:index')
@@ -123,8 +123,6 @@ class CartAddView(View):
                     "product_cost": float(product.cost)}
                 cart.append(cart_item)
             res.set_cookie(key="cart", value=json.dumps(cart))
-
-
         return res
 
 
