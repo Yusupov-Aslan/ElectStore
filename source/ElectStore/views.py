@@ -1,18 +1,14 @@
 import json
 from urllib.parse import urlencode
 from urllib.request import Request
-
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.contrib.sessions.models import Session
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
-# Create your views here.
 from ElectStore.forms import ProductForm, SearchForm, OrderForm
-from ElectStore.models import Product, ItemCart, Order, OrderProduct
+from ElectStore.models import Product, OrderProduct
 
 
 class IndexView(ListView):

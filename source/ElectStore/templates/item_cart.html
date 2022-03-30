@@ -45,7 +45,7 @@
             </tfoot>
         </table>
     </div>
-    {% if request.COOKIES.cart %}
+    {% if request.COOKIES.cart|str_to_json %}
         <h1>Оформить заказ</h1>
         <form action="{% url "ElectStore:order_create" %}" method="post">
             {% include 'partial/form.html' with button_text="Оформить" %}
