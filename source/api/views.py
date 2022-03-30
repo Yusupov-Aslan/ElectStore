@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ElectStore.models import Product, Order, ItemCart
+from ElectStore.models import Product, Order, ItemCart, OrderProduct
 from api.exceptions import InvalidDataException
 from api.permissions import IsStaffPermission, OrderPermission, IsCartItemOwner
 from api.serializers import ProductSerializer, OrderSerializer, ItemCartSerializer
@@ -62,3 +62,18 @@ class ItemCartDeleteAPIView(APIView):
         obj = get_object_or_404(queryset, id=pk)
         self.check_object_permissions(self.request, obj)
         return obj
+
+
+class OrderCreateAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        cart = request.user.cart_items.all()
+        serializer = OrderSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        order = serializer.save(user=user)
+        for item in cart:
+            OrderProduct.objects.create(order=order, product=item.product, amount=item.quantity)
+        cart.delete()
+        return Response(serializer.data)
